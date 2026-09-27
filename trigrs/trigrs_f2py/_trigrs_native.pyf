@@ -1,0 +1,97 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module _trigrs_native ! in 
+    interface  ! in :_trigrs_native
+        module trigrs_kernels ! in :_trigrs_native:C:\Users\worker306\Desktop\QTTrigrs\trigrs\trigrs_f2py\src\trigrs_f2py.f90
+            use grids
+            use input_vars
+            use model_vars
+            subroutine trigrs_solve(imax_in,nwf_in,tx_in,nmax_in,flag_in,nper_in,spcg_in,nzs_in,mmax_in,nzon_in,nout_in,kper_in,nts_in,uww_in,zmin_in,t_in,dep_in,czmax_in,crizero_in,slomin_in,slomax_in,deepz_in,tinc_in,flowdir_in,el_or_dep_in,deepwat_in,outp_in,rodoc_in,lskip_in,lany_in,llus_in,lps0_in,unsat0_in,bkgrof_in,lpge0_in,ths_in,thr_in,alp_in,dif_in,c_in,phi_in,ks_in,uws_in,capt_in,cri_in,tsav_in,unsat_in,igcap_in,slo_in,zo_in,rizero_in,depth_in,zmax_in,elev_in,nxt_in,indx_in,dsctr_in,dsc_in,wf_in,ri_flat_in,ans_in,fsmin_out,zfmin_out,pmin_out,wtab_out,rik1_out,p3d_out,fs3d_out,th3d_out,ptran3d_out,pzero3d_out,dh3d_out,newdep3d_out,nvu_out,nv_out,ro_out,ir_out,ncc_out,nccs_out) ! in :_trigrs_native:C:\Users\worker306\Desktop\QTTrigrs\trigrs\trigrs_f2py\src\trigrs_f2py.f90:trigrs_kernels
+                integer intent(in) :: imax_in
+                integer intent(in) :: nwf_in
+                integer intent(in) :: tx_in
+                integer intent(in) :: nmax_in
+                integer intent(in) :: flag_in
+                integer intent(in) :: nper_in
+                integer intent(in) :: spcg_in
+                integer intent(in) :: nzs_in
+                integer intent(in) :: mmax_in
+                integer intent(in) :: nzon_in
+                integer intent(in) :: nout_in
+                integer intent(in) :: kper_in
+                integer intent(in) :: nts_in
+                real intent(in) :: uww_in
+                real intent(in) :: zmin_in
+                real intent(in) :: t_in
+                real intent(in) :: dep_in
+                real intent(in) :: czmax_in
+                real intent(in) :: crizero_in
+                real intent(in) :: slomin_in
+                real intent(in) :: slomax_in
+                real intent(in) :: deepz_in
+                double precision intent(in) :: tinc_in
+                character*5 intent(in) :: flowdir_in
+                character*5 intent(in) :: el_or_dep_in
+                character*4 intent(in) :: deepwat_in
+                logical dimension(8),intent(in) :: outp_in
+                logical intent(in) :: rodoc_in
+                logical intent(in) :: lskip_in
+                logical intent(in) :: lany_in
+                logical intent(in) :: llus_in
+                logical intent(in) :: lps0_in
+                logical intent(in) :: unsat0_in
+                logical intent(in) :: bkgrof_in
+                logical intent(in) :: lpge0_in
+                double precision dimension(:),intent(in) :: ths_in
+                double precision dimension(:),intent(in) :: thr_in
+                double precision dimension(:),intent(in) :: alp_in
+                double precision dimension(:),intent(in) :: dif_in
+                double precision dimension(:),intent(in) :: c_in
+                double precision dimension(:),intent(in) :: phi_in
+                double precision dimension(:),intent(in) :: ks_in
+                double precision dimension(:),intent(in) :: uws_in
+                double precision dimension(:),intent(in) :: capt_in
+                double precision dimension(:),intent(in) :: cri_in
+                double precision dimension(:),intent(in) :: tsav_in
+                logical dimension(:),intent(in) :: unsat_in
+                logical dimension(:),intent(in) :: igcap_in
+                double precision dimension(:),intent(in) :: slo_in
+                integer dimension(:),intent(in) :: zo_in
+                double precision dimension(:),intent(in) :: rizero_in
+                double precision dimension(:),intent(in) :: depth_in
+                double precision dimension(:),intent(in) :: zmax_in
+                double precision dimension(:),intent(in) :: elev_in
+                integer dimension(:),intent(in) :: nxt_in
+                integer dimension(:),intent(in) :: indx_in
+                integer dimension(:),intent(in) :: dsctr_in
+                integer dimension(:),intent(in) :: dsc_in
+                double precision dimension(:),intent(in) :: wf_in
+                double precision dimension(:),intent(in) :: ri_flat_in
+                logical intent(in) :: ans_in
+                double precision dimension(:),intent(inout) :: fsmin_out
+                double precision dimension(:),intent(inout) :: zfmin_out
+                double precision dimension(:),intent(inout) :: pmin_out
+                double precision dimension(:),intent(inout) :: wtab_out
+                double precision dimension(:),intent(inout) :: rik1_out
+                double precision dimension(:,:),intent(inout) :: p3d_out
+                double precision dimension(:,:),intent(inout) :: fs3d_out
+                double precision dimension(:,:),intent(inout) :: th3d_out
+                double precision dimension(:,:),intent(inout) :: ptran3d_out
+                double precision dimension(:,:),intent(inout) :: pzero3d_out
+                double precision dimension(:),intent(inout) :: dh3d_out
+                double precision dimension(:),intent(inout) :: newdep3d_out
+                integer dimension(:),intent(inout) :: nvu_out
+                integer dimension(:),intent(inout) :: nv_out
+                double precision dimension(:),intent(inout) :: ro_out
+                double precision dimension(:),intent(inout) :: ir_out
+                integer intent(out) :: ncc_out
+                integer intent(out) :: nccs_out
+            end subroutine trigrs_solve
+        end module trigrs_kernels
+    end interface 
+end python module _trigrs_native
+
+! This file was auto-generated with f2py (version:1.26.4).
+! See:
+! https://web.archive.org/web/20140822061353/http://cens.ioc.ee/projects/f2py2e

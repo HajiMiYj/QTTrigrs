@@ -1,0 +1,22 @@
+# QTTrigrs 运行依赖
+#
+# 重要：必须是 64 位 Python 3.12。
+#  两个 Fortran 内核（trigrs/trigrs_f2py/_trigrs_native 与
+#  topoindex/topoindex_f2py/topoindex）都是按 cp312-win_amd64 编译的扩展，
+#  Python 版本不一致会报 ImportError / DLL load failed。
+#
+# 安装：
+#   pip install -r requirements.txt
+
+# --- 运行必需 ---------------------------------------------------------------
+numpy==1.26.4       # f2py 内核按其 ABI 编译（numpy 2.x 需重编内核）
+scipy>=1.11         # 数值辅助
+rasterio==1.3       # 栅格读写（GeoTIFF / ASCII Grid）
+PyQt5>=5.15,<6      # 图形界面
+
+# --- 仅“重新编译 Fortran 内核”时需要（见 README 第 13 节） --------------------
+# 还需在 PATH 上提供 MinGW-w64 的 gcc / gfortran（如 C:\mingw64\bin）；
+# gfortran 运行时 DLL 已随程序放在 lib/，运行时无需安装。
+# meson>=1.2
+# ninja>=1.11
+# setuptools>=68

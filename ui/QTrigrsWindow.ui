@@ -1,0 +1,1924 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TrigrsMainWindow</class>
+ <widget class="QWidget" name="TrigrsMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>713</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>TRIGRS</string>
+  </property>
+  <layout class="QVBoxLayout" name="mainVerticalLayout">
+   <property name="leftMargin">
+    <number>6</number>
+   </property>
+   <property name="topMargin">
+    <number>6</number>
+   </property>
+   <property name="rightMargin">
+    <number>6</number>
+   </property>
+   <property name="bottomMargin">
+    <number>6</number>
+   </property>
+   <item>
+    <widget class="QStackedWidget" name="TrigrsMainWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="TopoIndexWidget">
+<layout class="QVBoxLayout" name="topoIndexTabLayout">
+       <item>
+        <layout class="QHBoxLayout" name="topoToolBarLayout">
+         <item>
+          <widget class="QToolButton" name="topoLoadProjectButton">
+           <property name="toolTip">
+            <string>导入 tr_in.txt 或 tpx_in.txt，并按其记录的路径恢复栅格选择</string>
+           </property>
+           <property name="text">
+            <string>导入工程</string>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="topoSaveProjectButton">
+           <property name="toolTip">
+            <string>导出为官方 tpx_in.txt，可用原版 TopoIndex 打开</string>
+           </property>
+           <property name="text">
+            <string>导出工程</string>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="topoToolBarLine">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="topoPreviewInputButton">
+           <property name="text">
+            <string>生成输入文件</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="topoRunButton">
+           <property name="text">
+            <string>运行 TopoIndex</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="topoSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="topoInputGroupBox">
+         <property name="title">
+          <string>地形输入（从磁盘选择栅格文件）</string>
+         </property>
+         <layout class="QGridLayout" name="topoInputGridLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="topoDemLabel">
+            <property name="text">
+             <string>DEM 高程栅格</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <layout class="QHBoxLayout" name="topoDemLayerLayout">
+            <item>
+             <widget class="QWidget" name="topoDemLayerWidget" native="true"/>
+            </item>
+            <item>
+             <widget class="QLabel" name="topoDemLayerFileLabel">
+              <property name="styleSheet">
+               <string notr="true">QLabel { color: #666; }</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="topoDirLabel">
+            <property name="text">
+             <string>流向栅格（可选）</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <layout class="QHBoxLayout" name="topoDirLayerLayout">
+            <item>
+             <widget class="QWidget" name="topoDirLayerWidget" native="true"/>
+            </item>
+            <item>
+             <widget class="QLabel" name="topoDirLayerFileLabel">
+              <property name="styleSheet">
+               <string notr="true">QLabel { color: #666; }</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="topoHeadingLabel">
+            <property name="text">
+             <string>工程说明</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="topoHeadingLineEdit">
+            <property name="placeholderText">
+             <string>TopoIndex 工程说明</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="topoDirectionSchemeLabel">
+            <property name="text">
+             <string>流向编码方案</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <layout class="QHBoxLayout" name="topoDirectionSchemeLayout">
+            <item>
+             <widget class="QComboBox" name="topoDirectionSchemeComboBox">
+              <item>
+               <property name="text">
+                <string>1  ESRI D8</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>2  TopoIndex 1-9</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <spacer name="topoDirectionSchemeSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="topoParamGroupBox">
+         <property name="title">
+          <string>径流分配参数</string>
+         </property>
+         <layout class="QGridLayout" name="topoParamGridLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="topoPowerLabel">
+            <property name="text">
+             <string>pwr  坡度指数</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="topoPowerLineEdit">
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="topoIterLabel">
+            <property name="text">
+             <string>itmax  顺序修正最大迭代次数</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QSpinBox" name="topoIterSpinBox">
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>100000</number>
+            </property>
+            <property name="value">
+             <number>10</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="topoOutputFolderLabel">
+            <property name="text">
+             <string>输出目录（结果保存位置，可修改）</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <layout class="QHBoxLayout" name="topoOutputFolderLayout">
+            <item>
+             <widget class="QLineEdit" name="topoOutputFolderLineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+              <property name="placeholderText">
+               <string>默认取 DEM 所在目录，可点右侧浏览修改</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="topoOutputFolderButton">
+              <property name="text">
+               <string>浏览</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="topoSuffixLabel">
+            <property name="text">
+             <string>suffix  输出标识（不超过 8 字符）</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QLineEdit" name="topoSuffixLineEdit">
+            <property name="maxLength">
+             <number>8</number>
+            </property>
+            <property name="placeholderText">
+             <string>例如 demo</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="topoOutputGroupBox">
+         <property name="title">
+          <string>输出选项</string>
+         </property>
+         <layout class="QVBoxLayout" name="topoOutputVerticalLayout">
+          <item>
+           <layout class="QHBoxLayout" name="topoFormatLayout">
+            <item>
+             <widget class="QLabel" name="topoFormatLabel">
+              <property name="text">
+               <string>栅格输出格式</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="topoExtensionComboBox">
+              <item>
+               <property name="text">
+                <string>ASC (.asc)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>GeoTIFF (.tif)</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="topoListNeighborCheckBox">
+            <property name="text">
+             <string>保存 D8 下游邻居单元列表</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="topoGridNeighborCheckBox">
+            <property name="text">
+             <string>保存 D8 下游邻居单元栅格</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="topoGridIndexCheckBox">
+            <property name="text">
+             <string>保存单元计算顺序栅格</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="topoListIndexCheckBox">
+            <property name="text">
+             <string>保存单元编号与索引号列表</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="topoGridDirectionCheckBox">
+            <property name="text">
+             <string>保存重编码后的流向栅格</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="topoRidgeLayout">
+            <item>
+             <widget class="QCheckBox" name="topoRidgeCheckBox">
+              <property name="text">
+               <string>保存山脊栅格</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="topoRidgeSparseCheckBox">
+              <property name="text">
+               <string>稀疏输出 (lspars)</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="topoRidgeSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="topoVerticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="TrigrsWidget">
+<layout class="QVBoxLayout" name="trigrsTabLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <layout class="QHBoxLayout" name="toolBarLayout">
+         <item>
+          <widget class="QToolButton" name="newProjectButton">
+           <property name="text">
+            <string>新建工程</string>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="loadProjectButton">
+           <property name="toolTip">
+            <string>导入 tr_in.txt 或 tpx_in.txt，并按其记录的路径恢复栅格选择</string>
+           </property>
+           <property name="text">
+            <string>导入工程</string>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="saveProjectButton">
+           <property name="toolTip">
+            <string>导出为官方 tr_in.txt 或 tpx_in.txt，可用原版程序打开</string>
+           </property>
+           <property name="text">
+            <string>导出工程</string>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="toolBarLine">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="refreshLayersButton">
+           <property name="text">
+            <string>刷新栅格</string>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="previewInputButton">
+           <property name="text">
+            <string>生成输入文件</string>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="checkProjectButton">
+           <property name="text">
+            <string>检查参数</string>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="runProjectButton">
+           <property name="text">
+            <string>开始计算</string>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextOnly</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="toolBarSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QToolButton" name="stopProjectButton">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>停止</string>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextOnly</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="projectTitleLayout">
+         <item>
+          <widget class="QLabel" name="projectTitleLabel">
+           <property name="text">
+            <string>工程名称（Name of project）</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="projectTitleLineEdit">
+           <property name="placeholderText">
+            <string>TRIGRS, version 2.1, 工程名称（不超过 255 字符）</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QScrollArea" name="TrigrsScrollArea">
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>750</width>
+            <height>1386</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="scrollVerticalLayout">
+           <property name="leftMargin">
+            <number>4</number>
+           </property>
+           <property name="topMargin">
+            <number>4</number>
+           </property>
+           <property name="rightMargin">
+            <number>4</number>
+           </property>
+           <property name="bottomMargin">
+            <number>4</number>
+           </property>
+           <item>
+            <widget class="QGroupBox" name="controlGroupBox">
+             <property name="title">
+              <string>1. 程序控制参数  tx, nmax, mmax, zones</string>
+             </property>
+             <layout class="QGridLayout" name="controlGridLayout">
+              <item row="0" column="0">
+               <widget class="QLabel" name="txLabel">
+                <property name="text">
+                 <string>tx  时间步倍数</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QSpinBox" name="txSpinBox">
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>100000</number>
+                </property>
+                <property name="value">
+                 <number>1</number>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QLabel" name="nmaxLabel">
+                <property name="text">
+                 <string>nmax  最大迭代次数</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="QSpinBox" name="nmaxSpinBox">
+                <property name="minimum">
+                 <number>2</number>
+                </property>
+                <property name="maximum">
+                 <number>100000</number>
+                </property>
+                <property name="value">
+                 <number>30</number>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="4">
+               <widget class="QLabel" name="mmaxLabel">
+                <property name="text">
+                 <string>mmax  最大分层数</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="5">
+               <widget class="QSpinBox" name="mmaxSpinBox">
+                <property name="minimum">
+                 <number>-1</number>
+                </property>
+                <property name="maximum">
+                 <number>100000</number>
+                </property>
+                <property name="value">
+                 <number>100</number>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="6">
+               <widget class="QLabel" name="zoneCountLabel">
+                <property name="text">
+                 <string>zones  土壤分区数</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="7">
+               <widget class="QSpinBox" name="zoneCountSpinBox">
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>1000</number>
+                </property>
+                <property name="value">
+                 <number>1</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="simulationRowLayout">
+             <item>
+              <widget class="QGroupBox" name="simulationGroupBox">
+               <property name="title">
+                <string>2. 模拟控制参数  nzs, zmin, uww, nper, t</string>
+               </property>
+               <layout class="QGridLayout" name="simulationGridLayout">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="nzsLabel">
+                  <property name="text">
+                   <string>nzs  竖向分片数</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QSpinBox" name="nzsSpinBox">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>100000</number>
+                  </property>
+                  <property name="value">
+                   <number>4</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QLabel" name="zminLabel">
+                  <property name="text">
+                   <string>zmin  最小深度</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="3">
+                 <widget class="QLineEdit" name="zminLineEdit">
+                  <property name="minimumSize">
+                   <size>
+                    <width>110</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>0.001</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="4">
+                 <widget class="QLabel" name="uwwLabel">
+                  <property name="text">
+                   <string>uww  水的重度</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="5">
+                 <widget class="QLineEdit" name="uwwLineEdit">
+                  <property name="minimumSize">
+                   <size>
+                    <width>110</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>9.8e3</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="nperLabel">
+                  <property name="text">
+                   <string>nper  降雨时段数</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QSpinBox" name="nperSpinBox">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>1000</number>
+                  </property>
+                  <property name="value">
+                   <number>1</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <widget class="QLabel" name="tLabel">
+                  <property name="text">
+                   <string>t  模拟总时长 (s)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="3">
+                 <widget class="QLineEdit" name="tLineEdit">
+                  <property name="minimumSize">
+                   <size>
+                    <width>110</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>18000</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="conditionGroupBox">
+               <property name="title">
+                <string>3. 初始条件参数  zmax, depth, rizero, 坡度角范围</string>
+               </property>
+               <layout class="QGridLayout" name="conditionGridLayout">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="zmaxLabel">
+                  <property name="text">
+                   <string>zmax  最大深度（选择 zfil 栅格后此值被忽略）</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLineEdit" name="zmaxLineEdit">
+                  <property name="minimumSize">
+                   <size>
+                    <width>110</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>-5</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="depthLabel">
+                  <property name="text">
+                   <string>depth  初始地下水位深度（选择 depfil 栅格后忽略）</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLineEdit" name="depthLineEdit">
+                  <property name="minimumSize">
+                   <size>
+                    <width>110</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>-2.4</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="rizeroLabel">
+                  <property name="text">
+                   <string>rizero  初始入渗率（选择 rizerofil 栅格后忽略）</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QLineEdit" name="rizeroLineEdit">
+                  <property name="minimumSize">
+                   <size>
+                    <width>110</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>1.0e-7</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="slopeAngleLabel">
+                  <property name="text">
+                   <string>最小坡度 / 最大坡度 (deg)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <layout class="QHBoxLayout" name="slopeAngleLayout">
+                  <item>
+                   <widget class="QLineEdit" name="minSlopeLineEdit">
+                    <property name="minimumSize">
+                     <size>
+                      <width>110</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>0</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="maxSlopeLineEdit">
+                    <property name="minimumSize">
+                     <size>
+                      <width>110</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>90.0</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="soilGroupBox">
+             <property name="title">
+              <string>4. 土壤分区参数  cohesion(c), phi, uws, diffus, K-sat, Theta-sat, Theta-res, Alpha</string>
+             </property>
+             <layout class="QVBoxLayout" name="soilVerticalLayout">
+              <item>
+               <widget class="QTableWidget" name="soilTableWidget">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>120</height>
+                 </size>
+                </property>
+                <property name="alternatingRowColors">
+                 <bool>true</bool>
+                </property>
+                <property name="selectionBehavior">
+                 <enum>QAbstractItemView::SelectItems</enum>
+                </property>
+                <attribute name="horizontalHeaderDefaultSectionSize">
+                 <number>120</number>
+                </attribute>
+                <attribute name="horizontalHeaderStretchLastSection">
+                 <bool>true</bool>
+                </attribute>
+                <column>
+                 <property name="text">
+                  <string>粘聚力 c (Pa)</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>内摩擦角 phi (deg)</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>土体重度 uws</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>扩散系数 diffus</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>饱和导水率 K-sat</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>饱和含水率 Theta-sat</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>残余含水率 Theta-res</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Alpha</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="rainGroupBox">
+             <property name="title">
+              <string>5. 降雨参数  cri(nper), capt(nper+1)，以及每期降雨强度栅格 rifil(nper)</string>
+             </property>
+             <layout class="QVBoxLayout" name="rainVerticalLayout">
+              <item>
+               <widget class="QTableWidget" name="rainTableWidget">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>110</height>
+                 </size>
+                </property>
+                <property name="alternatingRowColors">
+                 <bool>true</bool>
+                </property>
+                <attribute name="horizontalHeaderDefaultSectionSize">
+                 <number>160</number>
+                </attribute>
+                <attribute name="horizontalHeaderStretchLastSection">
+                 <bool>true</bool>
+                </attribute>
+                <column>
+                 <property name="text">
+                  <string>cri  降雨强度 (m/s)；该行选了降雨栅格时此项无效</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>capt  时段起止时刻 (s)</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>rifil  降雨强度栅格</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="layerInputGroupBox">
+             <property name="title">
+              <string>6. 栅格输入栅格（从磁盘选择栅格文件）</string>
+             </property>
+             <layout class="QGridLayout" name="layerInputGridLayout">
+              <item row="0" column="0">
+               <widget class="QLabel" name="slopeLayerLabel">
+                <property name="text">
+                 <string>slofil  坡度栅格</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <layout class="QHBoxLayout" name="slopeLayerLayout">
+                <item>
+                 <widget class="QWidget" name="slopeLayerWidget" native="true"/>
+                </item>
+                <item>
+                 <widget class="QLabel" name="slopeLayerFileLabel">
+                  <property name="styleSheet">
+                   <string notr="true">QLabel { color: #666; }</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="elevLayerLabel">
+                <property name="text">
+                 <string>elevfil  高程栅格</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <layout class="QHBoxLayout" name="elevLayerLayout">
+                <item>
+                 <widget class="QWidget" name="elevLayerWidget" native="true"/>
+                </item>
+                <item>
+                 <widget class="QLabel" name="elevLayerFileLabel">
+                  <property name="styleSheet">
+                   <string notr="true">QLabel { color: #666; }</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="zoneLayerLabel">
+                <property name="text">
+                 <string>zonfil  属性分区栅格</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <layout class="QHBoxLayout" name="zoneLayerLayout">
+                <item>
+                 <widget class="QWidget" name="zoneLayerWidget" native="true"/>
+                </item>
+                <item>
+                 <widget class="QLabel" name="zoneLayerFileLabel">
+                  <property name="styleSheet">
+                   <string notr="true">QLabel { color: #666; }</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="zmaxLayerLabel">
+                <property name="text">
+                 <string>zfil  最大深度栅格</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <layout class="QHBoxLayout" name="zmaxLayerLayout">
+                <item>
+                 <widget class="QWidget" name="zmaxLayerWidget" native="true"/>
+                </item>
+                <item>
+                 <widget class="QLabel" name="zmaxLayerFileLabel">
+                  <property name="styleSheet">
+                   <string notr="true">QLabel { color: #666; }</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="4" column="0">
+               <widget class="QLabel" name="depthLayerLabel">
+                <property name="text">
+                 <string>depfil  初始地下水位深度栅格</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <layout class="QHBoxLayout" name="depthLayerLayout">
+                <item>
+                 <widget class="QWidget" name="depthLayerWidget" native="true"/>
+                </item>
+                <item>
+                 <widget class="QLabel" name="depthLayerFileLabel">
+                  <property name="styleSheet">
+                   <string notr="true">QLabel { color: #666; }</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="5" column="0">
+               <widget class="QLabel" name="rizeroLayerLabel">
+                <property name="text">
+                 <string>rizerofil  初始入渗率栅格</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <layout class="QHBoxLayout" name="rizeroLayerLayout">
+                <item>
+                 <widget class="QWidget" name="rizeroLayerWidget" native="true"/>
+                </item>
+                <item>
+                 <widget class="QLabel" name="rizeroLayerFileLabel">
+                  <property name="styleSheet">
+                   <string notr="true">QLabel { color: #666; }</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="runoffGroupBox">
+             <property name="title">
+              <string>7. 径流演算文件（TopoIndex 产物，留空则不进行径流演算）</string>
+             </property>
+             <layout class="QGridLayout" name="runoffGridLayout">
+              <item row="0" column="0">
+               <widget class="QLabel" name="nxtfilLabel">
+                <property name="text">
+                 <string>nxtfil  D8 下游单元编号栅格</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <layout class="QHBoxLayout" name="nxtLayerLayout">
+                <item>
+                 <widget class="QWidget" name="nxtLayerWidget" native="true"/>
+                </item>
+                <item>
+                 <widget class="QLabel" name="nxtLayerFileLabel">
+                  <property name="styleSheet">
+                   <string notr="true">QLabel { color: #666; }</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="ndxfilLabel">
+                <property name="text">
+                 <string>ndxfil  径流计算顺序单元列表</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="ndxfilLineEdit">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+                <property name="placeholderText">
+                 <string>由 TopoIndex 运行后自动填入，或手动选择</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QToolButton" name="ndxfilButton">
+                <property name="text">
+                 <string>选择文件</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="dscfilLabel">
+                <property name="text">
+                 <string>dscfil  全部下游受体单元列表</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLineEdit" name="dscfilLineEdit">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+                <property name="placeholderText">
+                 <string>由 TopoIndex 运行后自动填入，或手动选择</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="QToolButton" name="dscfilButton">
+                <property name="text">
+                 <string>选择文件</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="wffilLabel">
+                <property name="text">
+                 <string>wffil  径流权重因子列表</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QLineEdit" name="wffilLineEdit">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+                <property name="placeholderText">
+                 <string>由 TopoIndex 运行后自动填入，或手动选择</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="2">
+               <widget class="QToolButton" name="wffilButton">
+                <property name="text">
+                 <string>选择文件</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="outputGroupBox">
+             <property name="title">
+              <string>8. 输出选项</string>
+             </property>
+             <layout class="QVBoxLayout" name="outputVerticalLayout">
+              <item>
+               <layout class="QHBoxLayout" name="outputFolderLayout">
+                <item>
+                 <widget class="QLabel" name="outputFolderLabel">
+                  <property name="text">
+                   <string>folder  输出文件夹</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="outputFolderLineEdit">
+                  <property name="readOnly">
+                   <bool>true</bool>
+                  </property>
+                  <property name="placeholderText">
+                   <string>选择输出栅格文件存储文件夹</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QToolButton" name="outputFolderButton">
+                  <property name="text">
+                   <string>浏览</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="suffixLabel">
+                  <property name="text">
+                   <string>suffix  输出文件名标识</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="suffixLineEdit">
+                  <property name="placeholderText">
+                   <string>例如 tutorial</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="rodocCheckBox">
+                <property name="text">
+                 <string>保存径流栅格文件 (rodoc)</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="fsMinCheckBox">
+                <property name="text">
+                 <string>保存最小安全系数栅格</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="zfMinCheckBox">
+                <property name="text">
+                 <string>保存最小安全系数对应深度栅格</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="pMinCheckBox">
+                <property name="text">
+                 <string>保存最小安全系数处压力水头栅格</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="waterTableLayout">
+                <item>
+                 <widget class="QCheckBox" name="waterTableCheckBox">
+                  <property name="text">
+                   <string>保存计算的地下水位栅格，输出形式</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="waterTableModeComboBox">
+                  <item>
+                   <property name="text">
+                    <string>depth 深度</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>eleva 高程</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="waterTableSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="infiltrationCheckBox">
+                <property name="text">
+                 <string>保存实际入渗率栅格</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="basalFluxCheckBox">
+                <property name="text">
+                 <string>保存非饱和区基底通量栅格</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="flagLayout">
+                <item>
+                 <widget class="QLabel" name="flagLabel">
+                  <property name="text">
+                   <string>flag  压力水头与安全系数列表</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="flagComboBox">
+                  <item>
+                   <property name="text">
+                    <string>0  不输出</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>-1  Z-P-Fs 列表</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>-2  详细 Z-P-Fs</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>-3  Z-P-Fs-饱和度列表</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>-4  完整 ijz</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>-5  降采样 ijz</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>-6  稀疏 ijz</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>-7  完整 xmdv</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>-8  降采样 xmdv</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>-9  稀疏 xmdv</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="spcgLabel">
+                  <property name="text">
+                   <string>spcg  降采样间隔</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="spcgSpinBox">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="value">
+                   <number>1</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="flagSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="outputTimeLayout">
+                <item>
+                 <widget class="QLabel" name="noutLabel">
+                  <property name="text">
+                   <string>nout  输出次数</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="noutSpinBox">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="value">
+                   <number>1</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="tsavLabel">
+                  <property name="text">
+                   <string>tsav  输出时刻(s)，多个用逗号分隔</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="tsavLineEdit">
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="lskipCheckBox">
+                <property name="text">
+                 <string>lskip  跳过其它时间步</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="lanyCheckBox">
+                <property name="text">
+                 <string>lany  使用可填充孔隙度解析解</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="llusCheckBox">
+                <property name="text">
+                 <string>llus  估算上升地下水位区的正压力水头</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="lps0CheckBox">
+                <property name="text">
+                 <string>lps0  使用 psi0 = -1/alpha</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="massBalanceCheckBox">
+                <property name="text">
+                 <string>记录质量平衡结果</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="flowDirLayout">
+                <item>
+                 <widget class="QLabel" name="flowDirLabel">
+                  <property name="text">
+                   <string>flowdir  流向</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="flowDirComboBox">
+                  <item>
+                   <property name="text">
+                    <string>gener 通用</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>slope 平行坡面</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>hydro 静水压力</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="bkgrofCheckBox">
+                  <property name="text">
+                   <string>bkgrof  零降雨期计入稳态背景通量</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="flowDirSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="extensionLayout">
+                <item>
+                 <widget class="QLabel" name="extensionLabel">
+                  <property name="text">
+                   <string>lasc  输出栅格格式（T=asc / F=tif）</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="extensionComboBox">
+                  <item>
+                   <property name="text">
+                    <string>asc（默认）</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>tif</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="lpge0CheckBox">
+                  <property name="text">
+                   <string>lpge0  计算安全系数时忽略负压力水头</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="igcapfCheckBox">
+                  <property name="text">
+                   <string>igcapf  忽略毛细带水高度</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="extensionSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="scoopsGroupBox">
+             <property name="title">
+              <string>9. SCOOPS 深层压力水头估算参数</string>
+             </property>
+             <layout class="QHBoxLayout" name="scoopsLayout">
+              <item>
+               <widget class="QLabel" name="deepzLabel">
+                <property name="text">
+                 <string>deepz  地表以下深度（负值取消该选项）</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="deepzLineEdit">
+                <property name="text">
+                 <string>-50.0</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="deepwatLabel">
+                <property name="text">
+                 <string>deepwat  压力选项</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="deepwatComboBox">
+                <item>
+                 <property name="text">
+                  <string>zero 零压力</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>flow 流动</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>hydr 静水压力</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>relh 相对高度</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <spacer name="scoopsSpacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="previewWidget">
+<layout class="QVBoxLayout" name="previewVerticalLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QTabWidget" name="previewTabWidget">
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="previewTopoWidget">
+          <attribute name="title">
+           <string>TopoIndex 输入文件 tpx_in.txt</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="previewTopoLayout">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="previewTrinWidget">
+          <attribute name="title">
+           <string>TRIGRS 输入文件 tr_in.txt</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="previewTrinLayout">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+          <widget class="QWidget" name="resultPreviewWidget">
+       <layout class="QVBoxLayout" name="resultPreviewVerticalLayout">
+        <property name="leftMargin">
+         <number>4</number>
+        </property>
+        <property name="topMargin">
+         <number>4</number>
+        </property>
+        <property name="rightMargin">
+         <number>4</number>
+        </property>
+        <property name="bottomMargin">
+         <number>4</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="resultToolbarLayout">
+          <item>
+           <widget class="QToolButton" name="resultRefreshButton">
+            <property name="toolTip">
+             <string>扫描输出目录，刷新结果文件列表</string>
+            </property>
+            <property name="text">
+             <string>刷新结果</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="resultFolderLabel">
+            <property name="styleSheet">
+             <string notr="true">QLabel { color: #666; }</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="resultToolbarSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="resultSplitLayout">
+          <item>
+           <widget class="QListWidget" name="resultFileListWidget">
+            <property name="minimumSize">
+             <size>
+              <width>260</width>
+              <height>0</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="resultPreviewRightLayout">
+            <item>
+             <widget class="QPlainTextEdit" name="resultPreviewTextEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+              <property name="placeholderText">
+               <string>选择左侧结果文件后在此预览（文本文件显示内容；栅格显示头部与统计信息）</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="resultPreviewImageLabel">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>200</height>
+               </size>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel { background: #1e1e1e; color: #888; }</string>
+              </property>
+              <property name="text">
+               <string>栅格图像预览</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+</widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="logGroupBox">
+     <property name="title">
+      <string>运行日志</string>
+     </property>
+     <layout class="QVBoxLayout" name="logVerticalLayout">
+      <item>
+       <widget class="QPlainTextEdit" name="logPlainTextEdit">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>110</height>
+         </size>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,93 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module topoindex ! in 
+    interface  ! in :topoindex
+        subroutine sindex(ra,n,ndx) ! in :topoindex:C:\Users\worker306\Desktop\QTTrigrs\topoindex\topoindex_f2py\src\sindex_f2py.f90
+            threadsafe 
+            real dimension(n),intent(in) :: ra
+            integer, optional,intent(in),check(shape(ra, 0) == n),depend(ra) :: n=shape(ra, 0)
+            integer dimension(n),intent(out),depend(n) :: ndx
+        end subroutine sindex
+        subroutine nxtcel(rc,prm,nodat,nodata,z,dir,cell,save_list,list_file,nrow,ncol,cels,mmcnt,logmsg,istatus) ! in :topoindex:C:\Users\worker306\Desktop\QTTrigrs\topoindex\topoindex_f2py\src\nxtcel_f2py.f90
+            threadsafe 
+            integer intent(in) :: rc
+            integer intent(in) :: prm
+            double precision intent(in) :: nodat
+            integer intent(in) :: nodata
+            real dimension(ncol,nrow),intent(in) :: z
+            integer dimension(ncol,nrow),intent(in),depend(ncol,nrow) :: dir
+            integer dimension(ncol,nrow),intent(in),depend(ncol,nrow) :: cell
+            logical intent(in) :: save_list
+            character*(*) intent(in) :: list_file
+            integer, optional,intent(in),check(shape(z, 1) == nrow),depend(z) :: nrow=shape(z, 1)
+            integer, optional,intent(in),check(shape(z, 0) == ncol),depend(z) :: ncol=shape(z, 0)
+            integer dimension(rc),intent(out),depend(rc) :: cels
+            integer intent(out) :: mmcnt
+            character*4000 intent(out) :: logmsg
+            integer intent(out) :: istatus
+        end subroutine nxtcel
+        subroutine slofac(z,celsiz,nodat,nodata,cel,dscfil,pwr,next,wffil,dir,spars,nrow,ncol,rc,dsctr,ridge,logmsg,istatus) ! in :topoindex:C:\Users\worker306\Desktop\QTTrigrs\topoindex\topoindex_f2py\src\slofac_f2py.f90
+            threadsafe 
+            real dimension(ncol,nrow),intent(in) :: z
+            double precision intent(in) :: celsiz
+            double precision intent(in) :: nodat
+            integer intent(in) :: nodata
+            integer dimension(ncol,nrow),intent(in),depend(ncol,nrow) :: cel
+            character*(*) intent(in) :: dscfil
+            real intent(in) :: pwr
+            integer dimension(rc),intent(in) :: next
+            character*(*) intent(in) :: wffil
+            integer dimension(ncol,nrow),intent(in),depend(ncol,nrow) :: dir
+            integer intent(in) :: spars
+            integer, optional,intent(in),check(shape(z, 1) == nrow),depend(z) :: nrow=shape(z, 1)
+            integer, optional,intent(in),check(shape(z, 0) == ncol),depend(z) :: ncol=shape(z, 0)
+            integer, optional,intent(in),check(shape(next, 0) == rc),depend(next) :: rc=shape(next, 0)
+            integer intent(out) :: dsctr
+            integer dimension(rc),intent(out),depend(rc) :: ridge
+            character*4000 intent(out) :: logmsg
+            integer intent(out) :: istatus
+        end subroutine slofac
+        subroutine topo_in_read(init_file,title,heading,aif,pwr,itmax,op,lspars,suffix,folder,demfil,dirfil,logmsg,istatus) ! in :topoindex:C:\Users\worker306\Desktop\QTTrigrs\topoindex\topoindex_f2py\src\tpindx_f2py.f90
+            threadsafe 
+            character*(*) intent(in) :: init_file
+            character*255 intent(out) :: title
+            character*255 intent(out) :: heading
+            integer intent(out) :: aif
+            real intent(out) :: pwr
+            integer intent(out) :: itmax
+            logical dimension(6),intent(out) :: op
+            logical intent(out) :: lspars
+            character*8 intent(out) :: suffix
+            character*224 intent(out) :: folder
+            character*255 intent(out) :: demfil
+            character*255 intent(out) :: dirfil
+            character*4000 intent(out) :: logmsg
+            integer intent(out) :: istatus
+        end subroutine topo_in_read
+        subroutine correct_order(itmax,indx,lkup,cels,clcnt,rndx,ordr,cctr,logmsg,istatus) ! in :topoindex:C:\Users\worker306\Desktop\QTTrigrs\topoindex\topoindex_f2py\src\tpindx_f2py.f90
+            threadsafe 
+            integer intent(in) :: itmax
+            integer dimension(clcnt),intent(inout) :: indx
+            integer dimension(clcnt),intent(inout),depend(clcnt) :: lkup
+            integer dimension(clcnt),intent(in),depend(clcnt) :: cels
+            integer, optional,intent(in),check(shape(indx, 0) == clcnt),depend(indx) :: clcnt=shape(indx, 0)
+            integer dimension(clcnt),intent(out),depend(clcnt) :: rndx
+            integer dimension(clcnt),intent(out),depend(clcnt) :: ordr
+            integer intent(out) :: cctr
+            character*4000 intent(out) :: logmsg
+            integer intent(out) :: istatus
+        end subroutine correct_order
+        subroutine write_index_list(rndx,outfil,clcnt,istatus) ! in :topoindex:C:\Users\worker306\Desktop\QTTrigrs\topoindex\topoindex_f2py\src\tpindx_f2py.f90
+            threadsafe 
+            integer dimension(clcnt),intent(in) :: rndx
+            character*(*) intent(in) :: outfil
+            integer, optional,intent(in),check(shape(rndx, 0) == clcnt),depend(rndx) :: clcnt=shape(rndx, 0)
+            integer intent(out) :: istatus
+        end subroutine write_index_list
+    end interface 
+end python module topoindex
+
+! This file was auto-generated with f2py (version:1.26.4).
+! See:
+! https://web.archive.org/web/20140822061353/http://cens.ioc.ee/projects/f2py2e
