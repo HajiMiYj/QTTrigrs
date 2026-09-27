@@ -13,9 +13,11 @@
 # Python 中间产物
 # ---------------------------------------------------------------------------
 __pycache__/
-*.py[cod]
-*$py.class
+# 注意：这里**不能**写 *.py[cod] —— 那个字符类里的 d 会把 *.pyd
+#（两个 f2py 内核：_trigrs_native / topoindex）一并忽略掉，而它们是运行必需的。
+*.pyc
 *.pyo
+*$py.class
 .pytest_cache/
 .mypy_cache/
 .dmypy.json
