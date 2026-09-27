@@ -1,6 +1,6 @@
 # QTTrigrs 使用手册
 
-**TRIGRS（含 TopoIndex）独立桌面程序** · PyQt5 界面 · 不依赖 QGIS · 版本 1.0.0
+**TRIGRS（含 TopoIndex）独立桌面程序** · PyQt5 界面  · 版本 1.0.0
 
 ---
 
