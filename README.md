@@ -2,6 +2,8 @@
 
 **TRIGRS（含 TopoIndex）独立桌面程序** 
 
+[安装包测试版](https://github.com/HajiMiYj/QTTrigrs/releases/download/V0.1/QTTrigrs-1.0.0-setup.exe)
+
 ---
 
 ## 目录
