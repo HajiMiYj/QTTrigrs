@@ -1,6 +1,6 @@
 # QTTrigrs 使用手册
 
-**TRIGRS（含 TopoIndex）独立桌面程序** · PyQt5 界面 · 不依赖 QGIS · 版本 1.0.0
+**TRIGRS（含 TopoIndex）独立桌面程序** 
 
 ---
 
@@ -19,7 +19,9 @@
 11. [常见问题与故障排查](#11-常见问题与故障排查)
 12. [源码目录结构](#12-源码目录结构)
 13. [重新编译 Fortran 内核](#13-重新编译-fortran-内核)
-14. [许可](#14-许可)
+14. [打包成独立程序（Nuitka）](#14-打包成独立程序nuitka)
+15. [做成安装包（Inno Setup）](#15-做成安装包inno-setup)
+16. [许可](#16-许可)
 
 ---
 
@@ -32,6 +34,10 @@ QTTrigrs 把美国地质调查局（USGS）的两个边坡稳定性模型抽出�
 | **TopoIndex** | 地形指数分析：对 DEM 做高程排序、找 D8 下游单元、计算坡面径流分配权重，产出 TRIGRS 需要的径流汇流文件。 |
 | **TRIGRS** | 瞬态降雨入渗 + 区域边坡稳定性：按降雨过程逐时步求解压力水头与安全系数，产出最小安全系数等栅格。 |
 
+![Topoindex](docs/1.png)
+
+![Trigrs](docs/2.png)
+
 程序**完全兼容官方文件格式**：输入是官方 `tpx_in.txt` / `tr_in.txt`，输出文件名也与官方一致，
 因此可以和原版 USGS 程序互相打开、互相校验。
 
@@ -39,7 +45,7 @@ QTTrigrs 把美国地质调查局（USGS）的两个边坡稳定性模型抽出�
 
 - 求解全部用 **Fortran** 重写并编译成 `f2py` 扩展（`.pyd`），在**进程内后台线程**运行，
   调用期间释放 GIL，界面不会卡死；
-- 栅格读写改用 **rasterio**（不使用 GDAL Python 绑定）；
+- 栅格读写改用 **rasterio**）；
 - 界面从 QGIS 插件改为独立 PyQt5 程序，栅格直接从磁盘选择。
 
 算法、参数含义、单位、输出格式都与官方保持一致。
@@ -187,14 +193,22 @@ python main.py
 - **径流分配参数**：`pwr` 坡度指数、`itmax` 迭代次数、输出目录、`suffix` 输出标识。
 - **输出选项**：栅格输出格式（ASC / TIF）与 6 个保存开关。
 
+![topoindex参数页面](docs/3.png)
+
 ### 6.3 TRIGRS 页
 
 按官方 `tr_in.txt` 的顺序分 6 组：程序控制参数、模拟控制参数、初始条件参数、
 土壤分区参数、降雨参数、栅格输入；下面还有输出选项与 SCOOPS 深层估计。
 
+![trigrs参数页面](docs/4.png)
+
 ### 6.4 输入文件预览页
 
 实时显示当前参数将写出的 `tr_in.txt` / `tpx_in.txt` 全文，可直接对照官方文档核对。
+
+![trigrs输入文件预览](docs/5.png)
+
+![trigrs输入文件预览](docs/6.png)
 
 ### 6.5 结果预览页
 
@@ -203,10 +217,111 @@ python main.py
 - 文本文件（`*.txt`）：直接显示内容；
 - 栅格文件（`*.asc` / `*.tif`）：显示表头、尺寸、统计信息与灰度缩略图。
 
+![topoindex结果](docs/7.png)
+
+![trigrs结果](docs/8.png)
+
 ### 6.6 运行日志
 
 底部的 **运行日志** 面板汇总 Python 与 Fortran 的全部输出。运行结束后，日志会保存为
 输出目录下的 `TopoIndexLog.txt` / `TrigrsLog.txt`。
+
+```txt
+TopoIndex: Topographic Indexing and
+ flow distribution factors for routing
+ runoff through Digital Elevation Models
+            By Rex L. Baum
+       U.S. Geological Survey
+       & Jbc, NanChang University
+    Python Version 1.0.14, 11May2015
+-----------------------------------------
+Reading elevation grid data
+Initial elevation indexing completed
+Reading flow-direction data
+Converting directional data
+Writing raster grid
+Raster grid saved successfully
+Finding D8 neighbor cells（写 TIdsneiList 列表，大网格约 1 分钟，请耐心等待）
+Correcting cell index numbers（itmax=1280，约 30 秒，请耐心等待）
+Computing weighting factors（写 TIdscelList / TIwfactorList，大网格约 2 分钟，请耐心等待）
+Saving results to disk
+Writing raster grid
+Raster grid saved successfully
+Writing raster grid
+Raster grid saved successfully
+Writing cell number and index list
+Cell number and index list saved
+Writing grid size parameters
+TopoIndex finished normally
+
+Starting TopoIndex
+Version: 1.0.14, 11May2015
+Date: 09/28/2026
+Time: 16:36:57
+
+-- LISTING OF INITIALIZATION DATA --
+TopoIndex Python adaptation; project heading
+TopoIndex project
+Flow-direction numbering scheme (ESRI=1, TopoIndex=2)
+1
+Exponent, Number of iterations
+-1.00000000            1280
+Name of elevation grid file
+%数据位置%\dem.asc
+Name of direction grid
+%数据位置%\directions.asc
+Save listing of D8 downslope neighbor cells? T/F
+T
+Save grid of D8 downslope neighbor cells? T/F
+T
+Save cell index number grid? T/F
+T
+Save list of cell number and corresponding index number? T/F
+T
+Save remapped flow-direction grid? T/F
+T
+Save ridge-crest grid? T/F; Sparse (T) or dense (F)?
+F
+Path to elevation grid and output files
+%数据位置%
+ID code for output files? (8 characters or less)
+demo
+-- END OF INITIALIZATION DATA --
+
+TopoIndex project
+
+
+Parameters for file--> %数据位置%\dem.asc
+Data cells, Rows, Columns
+4204174 1769 4031
+Reading flow-direction data
+Converting directional data from ESRI to TopoIndex
+Writing raster grid to: %输出位置%\TIflodirGrid_demo.tif
+Raster grid saved successfully: %输出位置%\TIflodirGrid_demo.tif
+Converted flow direction grid saved.
+         Listing of grid mismatches
+Mismatch counter, Row, Column, Direction code
+0,  --,   --,  --
+No grid mismatch found!
+Subroutine nxtcel completed normally
+Subroutine slofac completed normallyWriting raster grid to: %输出位置%\TIdscelGrid_demo.tif
+Raster grid saved successfully: %输出位置%\TIdscelGrid_demo.tif
+Writing raster grid to: %输出位置%\TIcelindxGrid_demo.tif
+Raster grid saved successfully: %输出位置%\TIcelindxGrid_demo.tif
+Cell number and index list saved: %输出位置%\TIcelindxList_demo.txt
+Parameters for file--> %数据位置%\dem.asc
+Exponent -1.0
+Data cells, Rows, Columns, Downslope cells
+4204174 1769 4031 7419594
+
+TopoIndex finished normally
+Date: 09/28/2026
+Time: 16:40:14
+
+
+```
+
+
 
 ---
 
@@ -498,8 +613,14 @@ QTTrigrs/
 │   ├── QTrigrsTextBrowser.py      输入文件预览控件
 │   └── file_picker.py             栅格文件选择控件
 │
+├── build_nuitka.py                打包脚本（Nuitka，尽量小）
+├── installer/                     安装包（Inno Setup）
+│   ├── QTTrigrs.iss               安装脚本
+│   ├── LICENSE.txt                安装时展示的许可 / 致谢
+│   ├── ChineseSimplified.isl      简体中文安装界面
+│   └── build_installer.cmd        双击即可编译安装包
 └── resources/
-    ├── icons/                     工具栏 / 窗口图标
+    ├── icons/                     工具栏 / 窗口图标（含 app.ico，打包用）
     └── make_icons.py              生成图标的脚本
 ```
 
@@ -536,7 +657,160 @@ python build.py
 
 ---
 
-## 14. 许可
+## 14. 打包成独立程序（Nuitka）
+
+把整个程序打成一个不依赖本机 Python 的独立可执行文件，方便发给别人用。
+脚本是 `build_nuitka.py`，目标是**体积尽量小**。
+
+### 用法
+
+```bat
+pip install nuitka
+
+python build_nuitka.py                :: 默认 standalone（文件夹，体积最小，推荐）
+python build_nuitka.py --onefile      :: 单个 .exe
+python build_nuitka.py --clean        :: 先清掉上次产物
+python build_nuitka.py --console      :: 保留控制台窗口（调试用）
+python build_nuitka.py --jobs 8       :: 并行编译
+```
+
+产物在 `dist/` 下：`dist/QTTrigrs.dist/QTTrigrs.exe`（standalone）或 `dist/QTTrigrs.exe`（onefile）。
+
+### 环境要求
+
+- Python 3.12（与两个 `.pyd` 内核的 cp312 ABI 一致）
+- `pip install nuitka`
+- **C 编译器**：优先用已装好的 **MSVC**（脚本用 `vswhere` 自动探测，不需要开“Developer 命令行”）；
+  没装 MSVC 才会回退 `--mingw64`（首次会下载约 100 MB 的 MinGW）
+
+### 体积是怎么压下来的
+
+| 手段 | 说明 |
+| --- | --- |
+| `--noinclude-qt-translations` | 不带 Qt 翻译文件 |
+| `--noinclude-qt-plugins=…` | 只留用得到的 Qt 插件（去掉 sql/打印/多媒体/WebEngine 等） |
+| `--nofollow-import-to=…` | 不打包运行时用不到的库（tkinter / pytest / matplotlib / pandas …） |
+| `--remove-output` | 打包完删掉中间 `.build` 目录 |
+| **构建后裁剪**（`PRUNE_GLOBS`） | Nuitka 的 PyQt5 插件会把 Qt 的 DLL 一股脑塞进产物，而 `--noinclude-dlls` **管不到插件注入的 DLL**；所以打包完成后脚本再按名单删一遍：QtQuick/Qml、QtNetwork、OpenSSL、多媒体后端、用不到的图片格式插件、`opengl32sw.dll`（20 MB）等 |
+
+实测数据：
+
+| 场景 | 体积 |
+| --- | --- |
+| PyQt5 最小程序，裁剪前 → 裁剪后 | 60 MB → **44 MB** |
+| 本程序，用 conda 的 MKL 版 numpy —— 不裁剪 | 523 MB |
+| 本程序，用 conda 的 MKL 版 numpy —— 默认裁剪 | 348 MB |
+| 本程序，用 conda 的 MKL 版 numpy —— 再 `--prune-mkl` | 331 MB |
+| **本程序，用 pip 的 OpenBLAS 版 numpy —— 默认裁剪** | **167.8 MB** ← 推荐 |
+
+> `--onefile` 没法做构建后裁剪（DLL 已被塞进单文件），所以体积会比 standalone 大。
+> 想最小就用默认的 standalone。
+
+### 怎么让包再小一点（重要）
+
+本程序打包后仍有 300+ MB，**几乎全部是 numpy 背后那套 Intel MKL**：
+
+```
+mkl_core.2.dll      64 MB      mkl_intel_thread.2.dll  37 MB
+mkl_avx2.2.dll      39 MB      mkl_def.2.dll           31 MB
+mkl_rt.2.dll        27 MB      … 合计 260 MB+
+```
+
+这是**当前 conda 环境的 numpy 用了 MKL 版**导致的。想真正变小，用 **pip 装的 numpy**
+（OpenBLAS 版，只有几十 MB）来打包即可，例如：
+
+```bat
+:: 建一个专门用来打包的干净环境
+python -m venv .venv-pack
+.venv-pack\Scripts\python -m pip install numpy==1.26.4 PyQt5 rasterio nuitka
+:: 用这个环境跑打包脚本（.pyd 内核是 cp312，与 pip 的 numpy 1.26.4 ABI 一致）
+.venv-pack\Scripts\python build_nuitka.py --clean
+```
+
+**实测：523 MB → 167.8 MB**，而且产物验证可用（exe 正常启动、两个 Fortran 内核都能加载并调用）。
+
+167.8 MB 的构成（基本已经到极限）：
+
+| 部分 | 体积 |
+| --- | --- |
+| `QTTrigrs.exe`（编译后的 Python 代码） | 21 MB |
+| `rasterio.libs`（GDAL / PROJ / GEOS / SpatiaLite …） | 46 MB |
+| `numpy.libs`（OpenBLAS） | 36 MB |
+| 其余根目录（python312.dll + Qt5Core/Gui/Widgets + gfortran 运行时） | 32 MB |
+| `rasterio` / `numpy` / `PyQt5` 包目录 | 32 MB |
+
+> `rasterio.libs` 里那些看着「没用」的 DLL（spatialite / hdf5 / geos / netcdf / libxml2）
+> **一个都不能删**——实测只要移走 spatialite，`import rasterio` 就直接 DLL load failed
+> （GDAL 是直接链接它们的）。所以 167.8 MB 就是安全的下限。
+
+`--prune-mkl` 是「不想换环境」时的折中：删掉按 CPU 分发的多余内核
+（avx512 / mc3 / tbb_thread）以及 numpy 用不到的 ScaLAPACK / BLACS / MPI 部分，
+省约 190 MB。**删的是按 CPU 分发的内核，请在目标机器上实测后再分发。**
+
+### 打包产物里都带了什么
+
+- `resources/`（界面图标）、`lib/`（gfortran 运行时，另会复制一份到 exe 旁边）
+- `trigrs` / `topoindex` 两个包，含 `_trigrs_native` 与 `topoindex` 两个 `.pyd` 内核
+
+打包后建议实测一遍：选 DEM、跑一次 TopoIndex，确认 Fortran 内核能正常加载
+（若提示 DLL 找不到，把 `lib/*.dll` 复制到 exe 同目录即可）。
+
+---
+
+## 15. 做成安装包（Inno Setup）
+
+在上一步的独立程序外面再套一个 Windows 安装包（开始菜单 / 桌面快捷方式、卸载项、
+许可页），用 **Inno Setup 6** 制作。
+
+### 制作
+
+前置：先跑过 `build_nuitka.py`，有 `dist\main.dist\QTTrigrs.exe`。
+
+```bat
+:: 最简单：直接双击
+installer\build_installer.cmd
+
+:: 或者手动
+"C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer\QTTrigrs.iss
+```
+
+产物：**`dist\installer\QTTrigrs-1.0.0-setup.exe`**
+
+### 实测结果
+
+| 项 | 结果 |
+| --- | --- |
+| 安装包体积 | **37.3 MB**（167.8 MB 用 lzma2/max 压出来） |
+| 编译耗时 | 约 23 秒 |
+| 安装后占用 | 171.4 MB |
+| 静默安装 | `QTTrigrs-1.0.0-setup.exe /VERYSILENT /CURRENTUSER /DIR="..."` |
+| 安装后运行 | exe 正常启动；两个 Fortran 内核都能加载调用 |
+| 卸载 | 卸载程序退出码 0，目录清理干净 |
+
+### 安装包都做了什么
+
+- 默认装到 `Program Files\QTTrigrs`；向导里也可以选「仅为我安装」（不需要管理员权限）；
+- 自动创建 **开始菜单**快捷方式，可选 **桌面**快捷方式；
+- 安装前展示 **许可 / 致谢页**（`installer\LICENSE.txt`，含 USGS 官方作者署名）；
+- 注册标准的 **卸载项**（控制面板 → 程序和功能）；
+- 安装界面 **简体中文**（`installer\ChineseSimplified.isl`），也可切换 English；
+- 只允许 64 位 Windows 10 及以上。
+
+### 要改的地方
+
+| 想改什么 | 改哪里 |
+| --- | --- |
+| 版本号 | `installer\QTTrigrs.iss` 顶部的 `#define MyAppVersion` |
+| 发布者名称 | `#define MyAppPublisher`（同时写进 exe 属性） |
+| 默认安装目录 | `DefaultDirName` |
+| 许可页文字 | `installer\LICENSE.txt` |
+| Inno Setup 安装路径 | `installer\build_installer.cmd` 里的 `ISCC=` |
+
+> ⚠️ `AppId` 是固定 GUID，**不要改**——改了会被当成另一个程序，无法覆盖升级。
+
+---
+
+## 16. 许可
 
 本程序是对 USGS TRIGRS 与 TopoIndex 的独立封装实现。**模型算法与输入/输出格式的版权归
 USGS 及原作者所有**（USGS 软件为美国联邦政府作品，属公有领域）。使用本程序时请一并遵守

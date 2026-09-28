@@ -1,0 +1,53 @@
+﻿QTTrigrs —— TRIGRS（含 TopoIndex）独立桌面程序
+版本 1.0.0
+
+本程序把美国地质调查局（USGS）的两个边坡稳定性模型抽出来做成独立桌面程序：
+  * TopoIndex —— 地形指数与坡面径流分配
+  * TRIGRS    —— 瞬态降雨入渗与区域边坡稳定性
+
+============================================================
+致谢与版权
+============================================================
+
+本程序的全部算法与输入/输出格式都来自官方程序，代码只是把求解部分重新实现、
+把界面改成独立程序。原始模型与算法版权归原作者所有，特此郑重致谢：
+
+TRIGRS
+  Transient Rainfall Infiltration and Grid-Based Regional Slope-Stability Model
+  作者：Rex L. Baum、William Z. Savage、Jonathan W. Godt
+        （U.S. Geological Survey，美国地质调查局）
+  参考版本：官方 TRIGRS 2.1（2010）
+
+TopoIndex
+  Topographic Indexing and flow distribution factors for routing runoff
+  through Digital Elevation Models
+  作者：Rex L. Baum（U.S. Geological Survey）
+  参考版本：官方 TopoIndex 1.0.15
+
+USGS 的软件属于美国联邦政府作品，为公有领域（public domain），
+可自由使用与再分发。感谢 USGS 长期公开这两个模型与文档。
+
+============================================================
+本程序相对官方程序做了什么
+============================================================
+
+  * 求解内核：TRIGRS 力学求解与 TopoIndex 的排序/坡度因子计算全部用 Fortran
+    重新实现，经 numpy.f2py 编译成扩展，在进程内后台线程运行，界面不会卡死。
+  * 栅格 IO：改用 rasterio 读写 GeoTIFF / ASCII Grid。
+  * 界面：从 QGIS 插件改成独立 PyQt5 程序，栅格直接从磁盘选择。
+  * 兼容性：输入文件仍是官方 tr_in.txt / tpx_in.txt 格式，可与原版程序互换。
+
+============================================================
+官方参考文献
+============================================================
+
+  Baum, R.L., Savage, W.Z., and Godt, J.W., 2008, TRIGRS—A Fortran program for
+  transient rainfall infiltration and grid-based regional slope-stability
+  analysis, version 2.0: U.S. Geological Survey Open-File Report 2008-1159.
+
+  Baum, R.L., Godt, J.W., and Savage, W.Z., 2010, Estimating the timing and
+  location of shallow rainfall-induced landslides using a model for transient,
+  unsaturated infiltration: Journal of Geophysical Research, v. 115, F03010.
+
+------------------------------------------------------------
+同意上述条款即可继续安装。
