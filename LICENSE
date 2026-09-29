@@ -1,0 +1,6 @@
+本程序是对 USGS TRIGRS 与 TopoIndex 的独立封装实现。模型算法与输入/输出格式的版权归 USGS 及原作者所有（USGS 软件为美国联邦政府作品，属公有领域）。使用本程序时请一并遵守 官方 TRIGRS / TopoIndex 的使用条款，并在任何基于本程序的成果中引用官方文献。
+
+官方参考：
+
+Baum, R.L., Savage, W.Z., and Godt, J.W., 2008, TRIGRS—A Fortran program for transient rainfall infiltration and grid-based regional slope-stability analysis, version 2.0: U.S. Geological Survey Open-File Report 2008–1159.
+Baum, R.L., Godt, J.W., and Savage, W.Z., 2010, Estimating the timing and location of shallow rainfall-induced landslides using a model for transient, unsaturated infiltration: Journal of Geophysical Research, v. 115, F03010.
